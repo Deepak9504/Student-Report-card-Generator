@@ -36,26 +36,26 @@ report-card-generator/
 
 sql
 -- Create students table
-CREATE TABLE students (
+    CREATE TABLE students (
     id INT AUTO_INCREMENT PRIMARY KEY,
     roll_no VARCHAR(20) UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL
-);
+  );
 
 -- Create subjects table
-CREATE TABLE subjects (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
-);
+      CREATE TABLE subjects (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(50) NOT NULL
+  );
 
 -- Create marks table
-CREATE TABLE marks (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    student_id INT NOT NULL,
-    subject_id INT NOT NULL,
-    score DECIMAL(5,2) CHECK (score BETWEEN 0 AND 100),
-    FOREIGN KEY (student_id) REFERENCES students(id),
-    FOREIGN KEY (subject_id) REFERENCES subjects(id)
+      CREATE TABLE marks (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      student_id INT NOT NULL,
+      subject_id INT NOT NULL,
+      score DECIMAL(5,2) CHECK (score BETWEEN 0 AND 100),
+      FOREIGN KEY (student_id) REFERENCES students(id),
+      FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
 
 
