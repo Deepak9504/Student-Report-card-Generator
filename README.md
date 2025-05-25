@@ -34,98 +34,50 @@ report-card-generator/
 └── README.md            
 
 
-# MySQL Database Setup for Student Report Card System
+# MySQL Database Setup 
 
-## Database Tables
-
-### 1. Students Table
 sql
+-- Create database
+CREATE DATABASE IF NOT EXISTS report_card_db;
+USE report_card_db;
+
+-- Students table
 CREATE TABLE students (
-    student_id INT AUTO_INCREMENT PRIMARY KEY,
-    roll_number VARCHAR(20) UNIQUE NOT NULL,
-    full_name VARCHAR(100) NOT NULL,
-    class VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    roll_no VARCHAR(20) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    class VARCHAR(20)
 );
 
-
-### 2. Subjects Table
-sql
+-- Subjects table
 CREATE TABLE subjects (
-    subject_id INT AUTO_INCREMENT PRIMARY KEY,
-    subject_name VARCHAR(50) NOT NULL,
-    subject_code VARCHAR(10) UNIQUE
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
 );
 
-
-### 3. Marks Table
-sql
+-- Marks table
 CREATE TABLE marks (
-    mark_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT NOT NULL,
     subject_id INT NOT NULL,
-    marks_obtained DECIMAL(5,2) NOT NULL,
-    exam_term VARCHAR(20) NOT NULL,
-    academic_year VARCHAR(9) NOT NULL,
-    FOREIGN KEY (student_id) REFERENCES students(student_id),
-    FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
+    marks DECIMAL(5,2) NOT NULL,
+    term VARCHAR(20) NOT NULL,
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
 
+-- Insert sample data
+INSERT INTO students (roll_no, name, class) VALUES 
+('S001', 'Krrish Verma', '12A'),
+('S002', 'Deepak Kumar', '12B');
 
-## Sample Data Insertion
+INSERT INTO subjects (name) VALUES 
+('Math'), ('Science'), ('English'), ('History'), ('Computer');
 
-### Insert Sample Subjects
-sql
-INSERT INTO subjects (subject_name, subject_code) VALUES
-('Mathematics', 'MATH101'),
-('Physics', 'PHY101'),
-('Chemistry', 'CHEM101'),
-('English', 'ENG101'),
-('Computer Science', 'CS101');
-
-
-### Insert Sample Students
-sql
-INSERT INTO students (roll_number, full_name, class) VALUES
-('STU001', 'Krrish Verma', '12A'),
-('STU002', 'Deepak Kumar', '12B'),
-('STU003', 'Wahid Wasim', '12A');
-
-
-### Insert Sample Marks
-sql
-INSERT INTO marks (student_id, subject_id, marks_obtained, exam_term, academic_year) VALUES
-(1, 1, 85.5, 'Mid-Term', '2024-2025'),
-(1, 2, 92.0, 'Mid-Term', '2024-2025'),
-(2, 1, 78.0, 'Mid-Term', '2024-2025'),
-(3, 5, 95.5, 'Mid-Term', '2024-2025');
-
-
-## Useful Queries
-
-### Get Student Report Card
-sql
-SELECT s.full_name, s.roll_number, sub.subject_name, m.marks_obtained
-FROM marks m
-JOIN students s ON m.student_id = s.student_id
-JOIN subjects sub ON m.subject_id = sub.subject_id
-WHERE s.roll_number = 'STU001' 
-AND m.exam_term = 'Mid-Term' 
-AND m.academic_year = '2023-2024';
-
-
-### Calculate Total Marks and Average
-sql
-SELECT 
-    s.full_name,
-    SUM(m.marks_obtained) AS total_marks,
-    AVG(m.marks_obtained) AS average_marks,
-    COUNT(*) AS subjects_count
-FROM marks m
-JOIN students s ON m.student_id = s.student_id
-WHERE s.roll_number = 'STU001'
-AND m.exam_term = 'Mid-Term'
-AND m.academic_year = '2023-2024';
+INSERT INTO marks (student_id, subject_id, marks, term) VALUES
+(1, 1, 85.5, 'Mid-Term'),
+(1, 2, 92.0, 'Mid-Term'),
+(2, 1, 78.0, 'Mid-Term');
 
 ## Software Requirements
 - *Java Development Kit (JDK)*
