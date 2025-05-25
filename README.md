@@ -32,52 +32,32 @@ report-card-generator/
 │   └── data.sql                
 │
 └── README.md            
-
-
-# MySQL Database Setup 
+# MySQL Setup for Report Card System
 
 sql
--- Create database
-CREATE DATABASE IF NOT EXISTS report_card_db;
-USE report_card_db;
-
--- Students table
+-- Create students table
 CREATE TABLE students (
     id INT AUTO_INCREMENT PRIMARY KEY,
     roll_no VARCHAR(20) UNIQUE NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    class VARCHAR(20)
+    name VARCHAR(100) NOT NULL
 );
 
--- Subjects table
+-- Create subjects table
 CREATE TABLE subjects (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 );
 
--- Marks table
+-- Create marks table
 CREATE TABLE marks (
     id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT NOT NULL,
     subject_id INT NOT NULL,
-    marks DECIMAL(5,2) NOT NULL,
-    term VARCHAR(20) NOT NULL,
+    score DECIMAL(5,2) CHECK (score BETWEEN 0 AND 100),
     FOREIGN KEY (student_id) REFERENCES students(id),
-    FOREIGN KEY (subject_id) REFERENCES subjects(id)
+    FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
 
--- Insert sample data
-INSERT INTO students (roll_no, name, class) VALUES 
-('S001', 'Krrish Verma', '12A'),
-('S002', 'Deepak Kumar', '12B');
-
-INSERT INTO subjects (name) VALUES 
-('Math'), ('Science'), ('English'), ('History'), ('Computer');
-
-INSERT INTO marks (student_id, subject_id, marks, term) VALUES
-(1, 1, 85.5, 'Mid-Term'),
-(1, 2, 92.0, 'Mid-Term'),
-(2, 1, 78.0, 'Mid-Term');
 
 ## Software Requirements
 - *Java Development Kit (JDK)*
