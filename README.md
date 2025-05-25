@@ -20,18 +20,18 @@ The *Student Report Card Generator* is a Java application designed to automate t
 report-card-generator/
 │
 ├── src/
-│   ├── Main.java                # Entry point
-│   ├── Student.java             # Student model
-│   ├── ReportService.java       # Business logic
-│   └── DatabaseHandler.java     # DB operations
+│   ├── Main.java                
+│   ├── Student.java           
+│   ├── ReportService.java      
+│   └── DatabaseHandler.java   
 │
-├── lib/                        # External libraries
+├── lib/                       
 │
 ├── sql/
-│   ├── setup.sql               # Database creation
-│   └── data.sql                # Sample data
+│   ├── setup.sql              
+│   └── data.sql                
 │
-└── README.md                   # Project documentation
+└── README.md            
 
 
 # MySQL Database Setup for Student Report Card System
